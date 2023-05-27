@@ -1,3 +1,14 @@
+disp.onmouseup = () => {
+  if (flg == '1') {
+    flg = '0';
+  } else {
+    if (document.getElementById('area').style.display == 'none') {
+      document.getElementById('area').style.display = 'block';
+      document.getElementById('disp').style.display = 'none';
+    }
+  }
+};
+
 var flg = '0';
 imobile_pid = '21522';
 imobile_asid = '1078121';
