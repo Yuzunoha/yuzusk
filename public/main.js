@@ -1,12 +1,12 @@
 let isInsertMode = false;
 
-disp.onmouseup = () => {
+divDisp.onmouseup = () => {
   if (isInsertMode) {
     isInsertMode = false;
     return;
   }
-  if ('none' === area.style.display) {
-    area.style.display = 'block';
-    disp.style.display = 'none';
+  if ('none' === divArea.style.display) {
+    divArea.style.display = 'block';
+    divDisp.style.display = 'none';
   }
 };

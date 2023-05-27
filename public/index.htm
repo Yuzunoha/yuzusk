@@ -7,13 +7,14 @@
   </head>
   <body>
     <form name="sketch" method="POST" action="http://xxxx/edit.php">
-      <div id="disp" style="cursor: pointer; color: black">
+      <div id="divDisp" style="cursor: pointer; color: black">
         2023/05/27(土)
         <br />■完了タスク1 <br />■完了タスク2 <br />■完了タスク3 <br />□未完了タスク1
         <br />□未完了タスク2<br />□未完了タスク3 <br />
       </div>
-      <div id="area" style="display: none">
-        <input type="hidden" name="id" value="yuzunh" /><textarea name="txt" rows="20" cols="80" id="txt">
+      <div id="divArea" style="display: none">
+        <input type="hidden" name="id" value="yuzunh" />
+        <textarea id="textarea1" name="txt" rows="20" cols="80">
 2023/05/27(土)
 ■完了タスク1
 ■完了タスク2
@@ -21,8 +22,7 @@
 □未完了タスク1
 □未完了タスク2
 □未完了タスク3
-</textarea
-        >
+        </textarea>
       </div>
       <br /><input type="button" name="edit" value="編集する" />
       <div style="font-size: 10px">最終更新日時: 2023/05/27 21:06</div>
