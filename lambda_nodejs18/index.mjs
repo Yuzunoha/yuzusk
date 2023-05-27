@@ -10,18 +10,14 @@ const p = console.log;
 export const params = {
   TableName: 'yuzusk',
   Item: {
-    key: 'key1', // For example, 'Season': 2
-    jst: 'jst1', // For example,  'Episode': 2 (only required if table has sort key)
-    NEW_ATTRIBUTE_1: 'NEW_ATTRIBUTE_1_VALUE', //For example 'Title': 'The Beginning'
+    key: 'key1',
+    jst: 'jst1',
+    NEW_ATTRIBUTE_1: 'NEW_ATTRIBUTE_1_VALUE',
   },
+  ConditionExpression: 'attribute_not_exists(jst1)', // 条件式について調査中
 };
 
 const run = async () => {
-  try {
-    const data = await ddbDocClient.send(new PutCommand(params));
-    p('Success - item added or updated', data);
-  } catch (err) {
-    p('Error', err);
-  }
+  await ddbDocClient.send(new PutCommand(params));
 };
 run();
