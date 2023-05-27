@@ -5,11 +5,19 @@ btnSend.onclick = () => {
   modeSetDisp();
 };
 
-const modeSetEdit = () => {
-  divArea.style.display = 'block';
-  divDisp.style.display = 'none';
+const setStyleDisplayBulk = (elements, display) => {
+  elements.forEach((element) => (element.style.display = display));
 };
+
+const setStyleDisplayBulkBlock = (elements) => setStyleDisplayBulk(elements, 'block');
+const setStyleDisplayBulkNone = (elements) => setStyleDisplayBulk(elements, 'none');
+
+const modeSetEdit = () => {
+  setStyleDisplayBulkBlock([divArea, btnSend]);
+  setStyleDisplayBulkNone([divDisp, btnEdit]);
+};
+
 const modeSetDisp = () => {
-  divArea.style.display = 'none';
-  divDisp.style.display = 'block';
+  setStyleDisplayBulkBlock([divDisp, btnEdit]);
+  setStyleDisplayBulkNone([divArea, btnSend]);
 };
