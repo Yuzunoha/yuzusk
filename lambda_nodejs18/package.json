@@ -1,5 +1,5 @@
 {
-  "name": "lambda_nodejs16",
+  "name": "lambda_nodejs18",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -9,6 +9,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "aws-sdk": "^2.1386.0"
+    "@aws-sdk/client-dynamodb": "^3.341.0"
   }
 }
