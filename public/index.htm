@@ -4,9 +4,6 @@
     <title>yuzusk</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" href="style.css" />
-    <script type="text/javascript">
-      var flg = '0';
-    </script>
   </head>
   <body>
     <form name="sketch" method="POST" action="http://xxxx/edit.php">
@@ -32,33 +29,8 @@
         >
       </div>
       <br /><input type="button" name="edit" value="編集する" />
-      <br />
-      <br />
-      <!-- i-mobile for PC client script -->
-      <script type="text/javascript">
-        imobile_pid = '21522';
-        imobile_asid = '1078121';
-        imobile_width = 468;
-        imobile_height = 60;
-      </script>
       <div style="font-size: 10px">最終更新日時: 2023/05/27 21:06</div>
-      <script type="text/javascript">
-        <!--
-        function rep() {
-          var txt = document.getElementById('disp').innerHTML;
-          txt = txt.replace(
-            /(http:\/\/[\x21-\x7e]+)/gi,
-            '<a href="http://rd.nan7.net/$1" onmousedown="flg=' + "'1'" + ';" target="_blank">$1</a>'
-          );
-          txt = txt.replace(
-            /(https:\/\/[\x21-\x7e]+)/gi,
-            '<a href="http://rd.nan7.net/$1" onmousedown="flg=' + "'1'" + ';" target="_blank">$1</a>'
-          );
-          document.getElementById('disp').innerHTML = txt;
-        }
-        rep();
-        //-->
-      </script>
+      <script src="main.js"></script>
     </form>
   </body>
 </html>
