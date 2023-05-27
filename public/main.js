@@ -2,9 +2,9 @@ disp.onmouseup = () => {
   if (flg == '1') {
     flg = '0';
   } else {
-    if (document.getElementById('area').style.display == 'none') {
-      document.getElementById('area').style.display = 'block';
-      document.getElementById('disp').style.display = 'none';
+    if (area.style.display == 'none') {
+      area.style.display = 'block';
+      disp.style.display = 'none';
     }
   }
 };
