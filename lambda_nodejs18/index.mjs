@@ -22,7 +22,6 @@ app.use(cors());
 // 汎用関数
 const p = console.log;
 const createHandler = (func) => (req, res) => func({ req, res });
-const setRouteUse = (route, func) => app.use(route, createHandler(func));
 const setRouteGet = (route, func) => app.get(route, createHandler(func));
 const setRoutePost = (route, func) => app.post(route, createHandler(func));
 
@@ -41,22 +40,6 @@ setRouteGet('/', async ({ req, res }) => {
 setRoutePost('/', ({ req, res }) => {
   res.send(JSON.stringify({ body: req.body }));
 });
-
-const main = async (event) => {
-  const yuzuskkey = 'パーティションキー1';
-  const memo = 'メモ1です。';
-  await yuzuskService.update({ yuzuskkey, memo });
-
-  const item = await yuzuskService.selectItem({ yuzuskkey });
-  p({ item });
-
-  const body = 'レスポンスです。';
-  const response = {
-    statusCode: 200,
-    body: JSON.stringify(body),
-  };
-  return response;
-};
 
 // 起動
 if (!utilService.isAws()) {
