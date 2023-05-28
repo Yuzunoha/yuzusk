@@ -23,6 +23,10 @@ btnSend.onclick = () => {
     })
     .catch(console.log);
 };
+btnSetup.onclick = () => {
+  // リダイレクト
+  location.href = '?a=b';
+};
 
 const setStyleDisplayBulk = (elements, display) => {
   elements.forEach((element) => (element.style.display = display));
