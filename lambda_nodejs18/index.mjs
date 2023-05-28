@@ -1,17 +1,26 @@
+import express from 'express';
 import { DynamoDB } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, UpdateCommand, QueryCommand } from '@aws-sdk/lib-dynamodb';
 import { YuzuskService } from './services/YuzuskService.mjs';
 import { UtilService } from './services/UtilService.mjs';
+import serverlessExpress from '@vendia/serverless-express';
 
+// 初期化
 const utilService = new UtilService();
 const options = utilService.isAws() ? undefined : { endpoint: 'http://localhost:8000', region: 'dummy' };
 const dynamoDB = new DynamoDB(options);
 const ddbDocClient = DynamoDBDocumentClient.from(dynamoDB);
 const yuzuskService = new YuzuskService({ ddbDocClient, UpdateCommand, QueryCommand, utilService });
 
+// express
+const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+// 汎用関数
 const p = console.log;
 
-export const handler = async (event) => {
+const main = async (event) => {
   const yuzuskkey = 'パーティションキー1';
   const memo = 'メモ1です。';
   await yuzuskService.update({ yuzuskkey, memo });
@@ -27,7 +36,10 @@ export const handler = async (event) => {
   return response;
 };
 
-// ここがローカルなら実行する
+// 起動
 if (!utilService.isAws()) {
-  handler();
+  p('ローカルで起動しました。');
+  app.listen(3000);
 }
+
+export const handler = serverlessExpress({ app });

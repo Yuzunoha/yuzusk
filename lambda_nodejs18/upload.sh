@@ -1,6 +1,10 @@
 #!/bin/bash
 
 function main() {
+  # ライブラリをインストールする
+  npm install
+  wait
+
   # zipに固める
   zip -r lambda.zip . &
   wait
