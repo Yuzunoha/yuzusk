@@ -29,6 +29,9 @@ const setRoutePost = (route, func) => app.post(route, createHandler(func));
 setRouteGet('/', async ({ req, res }) => {
   // yuzuskkeyが無ければ作る
   const yuzuskkey = req.query.id;
+  if (!yuzuskkey) {
+    return res.send('');
+  }
   let item = await yuzuskService.selectItem({ yuzuskkey });
   if (undefined === item) {
     /* 無いので作る */
