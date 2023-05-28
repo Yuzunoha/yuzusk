@@ -6,29 +6,25 @@
  */
 const urlAws = 'https://6f7lnalfjbbh2ywq55vydlkgty0isvdg.lambda-url.ap-northeast-1.on.aws/';
 const urlLocal = 'http://localhost:3000';
+const p = console.log;
 
-btnEdit.onclick = () => {
-  modeSetEdit();
+/**
+ * urlからidを取得する関数
+ */
+const getIdByUrl = () => {
+  const a = location.search.split('=');
+  return a[a.length - 1].trim();
 };
-btnSend.onclick = () => {
-  updateDivDisp();
-  modeSetDisp();
-  postData(urlLocal, {
-    answer: 42,
-    message: 'メッセージ',
-  })
-    .then((res) => res.json())
-    .then((data) => {
-      console.log(data);
-    })
-    .catch(console.log);
-};
-btnSetup.onclick = () => {
-  // リダイレクト
-  const id = inputId.value;
-  if (id) {
-    location.href = '?id=' + id;
-  }
+
+/**
+ * POSTメソッドを投げる汎用関数
+ */
+const postData = (url, data) => {
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
 };
 
 const setStyleDisplayBulk = (elements, display) => {
@@ -67,6 +63,26 @@ const updateDivDisp = () => {
   divDispText.innerHTML = a;
 };
 
+btnEdit.onclick = () => {
+  modeSetEdit();
+};
+
+btnSend.onclick = () => {
+  const id = getIdByUrl();
+  const memo = textarea1.value;
+  updateDivDisp();
+  modeSetDisp();
+  postData(urlLocal, { id, memo }).then(p).catch(p);
+};
+
+btnSetup.onclick = () => {
+  // リダイレクト
+  const id = inputId.value;
+  if (id) {
+    location.href = '?id=' + id;
+  }
+};
+
 document.addEventListener('keydown', (event) => {
   if ('block' === divArea.style.display) {
     /* 編集モード中に */
@@ -79,24 +95,11 @@ document.addEventListener('keydown', (event) => {
 });
 
 /**
- * POSTメソッドを投げる汎用関数
- */
-function postData(url, data) {
-  return fetch(url, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(data),
-  });
-}
-
-/**
  * 初期化処理
  */
 window.addEventListener('DOMContentLoaded', (event) => {
-  // id取得
-  const a = location.search.split('=');
-  const id = a[a.length - 1].trim();
   /* idが */
+  const id = getIdByUrl();
   if (id) {
     /* ある */
     // 閲覧ページを表示する
