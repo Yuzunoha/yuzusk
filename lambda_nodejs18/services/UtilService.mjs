@@ -16,4 +16,11 @@ export class UtilService {
     dateStr += ' JST';
     return dateStr;
   }
+
+  /**
+   * aws上で動いている場合のみtrue
+   */
+  isAws() {
+    return 'aws' === process.env.NODE_ENV;
+  }
 }
