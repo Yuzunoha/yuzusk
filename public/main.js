@@ -3,10 +3,6 @@
  * divTop    topモード
  * divDisp   閲覧モード
  * divArea   編集モード
- * textarea1 編集モード
- * btnEdit   閲覧モード
- * btnSend   編集モード
- * divDate   閲覧モード
  */
 const urlAws = 'https://6f7lnalfjbbh2ywq55vydlkgty0isvdg.lambda-url.ap-northeast-1.on.aws/';
 const urlLocal = 'http://localhost:3000';
@@ -34,16 +30,16 @@ const setStyleDisplayBulk = (elements, display) => {
 const setStyleDisplayBulkBlock = (elements) => setStyleDisplayBulk(elements, 'block');
 const setStyleDisplayBulkNone = (elements) => setStyleDisplayBulk(elements, 'none');
 const modeSetEdit = () => {
-  setStyleDisplayBulkBlock([divArea, btnSend]);
-  setStyleDisplayBulkNone([divDisp, btnEdit]);
+  setStyleDisplayBulkBlock([divArea]);
+  setStyleDisplayBulkNone([divDisp, divTop]);
 };
 const modeSetDisp = () => {
-  setStyleDisplayBulkBlock([divDisp, btnEdit]);
-  setStyleDisplayBulkNone([divArea, btnSend]);
+  setStyleDisplayBulkBlock([divDisp]);
+  setStyleDisplayBulkNone([divArea, divTop]);
 };
 const modeSetTop = () => {
-  setStyleDisplayBulkBlock([divDisp, btnEdit]);
-  setStyleDisplayBulkNone([divArea, btnSend]);
+  setStyleDisplayBulkBlock([divTop]);
+  setStyleDisplayBulkNone([divDisp, divArea]);
 };
 
 /**
@@ -61,7 +57,7 @@ const updateDivDisp = () => {
     .replace(/\n/g, '<br>') // 改行
     .replace(/ /g, spaceN(1)) // 半角スペース
     .replace(/\t/g, spaceN(8)); // タブ文字
-  divDisp.innerHTML = a;
+  divDispText.innerHTML = a;
 };
 
 document.addEventListener('keydown', (event) => {
@@ -97,10 +93,10 @@ window.addEventListener('DOMContentLoaded', (event) => {
   if (id) {
     /* ある */
     // 閲覧ページを表示する
-    console.log('ある');
+    modeSetDisp();
   } else {
     /* ない */
-    console.log('ない');
     // トップページを表示する
+    modeSetTop();
   }
 });

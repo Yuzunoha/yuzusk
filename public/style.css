@@ -1,8 +1,10 @@
 body {
   font-size: 14px;
   line-height: 1.3em;
-  color: #b04c34;
   background-color: #ffffff;
+}
+#divDate {
+  color: #b04c34;
 }
 a {
   color: #d16e57;

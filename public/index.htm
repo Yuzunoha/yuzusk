@@ -6,13 +6,17 @@
     <link rel="stylesheet" href="style.css" />
   </head>
   <body>
-    <div id="divTop" style="display: none; color: black">
+    <div id="divTop" style="display: none">
       <p>トップページ</p>
     </div>
-    <div id="divDisp" style="display: none; color: black">
-      2023/05/27(土)
-      <br />■完了タスク1 <br />■完了タスク2 <br />■完了タスク3 <br />□未完了タスク1
-      <br />□未完了タスク2<br />□未完了タスク3 <br />
+    <div id="divDisp" style="display: none">
+      <div id="divDispText">
+        2023/05/27(土)
+        <br />■完了タスク1 <br />■完了タスク2 <br />■完了タスク3 <br />□未完了タスク1
+        <br />□未完了タスク2<br />□未完了タスク3 <br />
+      </div>
+      <input id="btnEdit" type="button" value="編集する" />
+      <p id="divDate" style="font-size: 10px">最終更新日時: 2023/05/27 21:06</p>
     </div>
     <div id="divArea" style="display: none">
       <textarea id="textarea1" name="txt" rows="20" cols="80">
@@ -25,11 +29,8 @@
 □未完了タスク3
 </textarea
       >
+      <input id="btnSend" type="button" value="送信する(ctlr+Enter)" />
     </div>
-    <br />
-    <input id="btnEdit" type="button" value="編集する" style="display: none" />
-    <input id="btnSend" type="button" value="送信する(ctlr+Enter)" style="display: none" />
-    <div id="divDate" style="display: none; font-size: 10px">最終更新日時: 2023/05/27 21:06</div>
     <script src="main.js"></script>
   </body>
 </html>
