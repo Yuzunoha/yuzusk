@@ -19,6 +19,13 @@ app.use(express.urlencoded({ extended: true }));
 
 // 汎用関数
 const p = console.log;
+const createHandler = (func) => (req, res) => func({ req, res });
+const setRouteUse = (route, func) => app.use(route, createHandler(func));
+const setRouteGet = (route, func) => app.get(route, createHandler(func));
+const setRoutePost = (route, func) => app.post(route, createHandler(func));
+
+// コントローラ
+setRouteGet('/', ({ res }) => res.send('疎通確認成功！'));
 
 const main = async (event) => {
   const yuzuskkey = 'パーティションキー1';
