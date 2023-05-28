@@ -1,23 +1,28 @@
 // Create service client module using ES6 syntax.
 import { DynamoDB } from '@aws-sdk/client-dynamodb';
-import { DynamoDBDocumentClient, PutCommand } from '@aws-sdk/lib-dynamodb';
+import { DynamoDBDocumentClient, UpdateCommand } from '@aws-sdk/lib-dynamodb';
 const options = { endpoint: 'http://localhost:8000', region: 'dummy' };
 const dynamoDB = new DynamoDB(options);
 const ddbDocClient = DynamoDBDocumentClient.from(dynamoDB);
 
-const p = console.log;
-
-export const params = {
+const params = {
   TableName: 'yuzusk',
-  Item: {
-    key: 'key1',
-    jst: 'jst1',
-    NEW_ATTRIBUTE_1: 'NEW_ATTRIBUTE_1_VALUE',
+  Key: {
+    yuzuskkey: 'yuzuskkey1',
   },
-  ConditionExpression: 'attribute_not_exists(jst1)', // 条件式について調査中
+  ExpressionAttributeNames: {
+    '#attr1': 'jst',
+    '#attr2': 'memo',
+  },
+  ExpressionAttributeValues: {
+    ':value1': 'abc',
+    ':value2': 'いいい',
+  },
+  UpdateExpression: 'set #attr1 = :value1, #attr2 = :value2',
+  // ConditionExpression: 'yuzuskkey <> yuzuskkey1',
 };
 
 const run = async () => {
-  await ddbDocClient.send(new PutCommand(params));
+  await ddbDocClient.send(new UpdateCommand(params));
 };
 run();
