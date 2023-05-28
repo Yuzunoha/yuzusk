@@ -6,6 +6,7 @@
  */
 const urlAws = 'https://6f7lnalfjbbh2ywq55vydlkgty0isvdg.lambda-url.ap-northeast-1.on.aws/';
 const urlLocal = 'http://localhost:3000';
+const url = urlLocal;
 const p = console.log;
 
 /**
@@ -72,7 +73,7 @@ btnSend.onclick = () => {
   const memo = textarea1.value;
   updateDivDisp();
   modeSetDisp();
-  postData(urlLocal, { id, memo }).then(p).catch(p);
+  postData(url, { id, memo }).then(p).catch(p);
 };
 
 btnSetup.onclick = () => {
@@ -102,8 +103,19 @@ window.addEventListener('DOMContentLoaded', (event) => {
   const id = getIdByUrl();
   if (id) {
     /* ある */
-    // 閲覧ページを表示する
-    modeSetDisp();
+    // textareaを更新する
+    // { yuzuskkey: 'a', memo: 'ご自由にお使いください。', jst: '2023/05/29 01:06:58 JST' }
+    fetch(url + '?id=' + id)
+      .then((response) => response.json())
+      .then(({ memo, jst }) => {
+        // 表示を更新する
+        textarea1.value = memo;
+        divDate.innerHTML = jst;
+        updateDivDisp();
+        // 閲覧ページを表示する
+        modeSetDisp();
+      })
+      .catch(p);
   } else {
     /* ない */
     // トップページを表示する
