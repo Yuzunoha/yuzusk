@@ -6,7 +6,7 @@
  */
 const urlAws = 'https://6f7lnalfjbbh2ywq55vydlkgty0isvdg.lambda-url.ap-northeast-1.on.aws/';
 const urlLocal = 'http://localhost:3000';
-const url = urlLocal;
+const url = urlAws;
 const p = console.log;
 
 /**
