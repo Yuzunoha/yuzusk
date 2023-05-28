@@ -7,7 +7,10 @@
   </head>
   <body>
     <div id="divTop" style="display: none">
-      <p>トップページ</p>
+      <h1>トップページ</h1>
+      <p>自分だけが知るキーワードを指定して利用を開始してください。</p>
+      <input id="inputId" type="text" />
+      <input id="btnSetup" type="button" value="開始する" />
     </div>
     <div id="divDisp" style="display: none">
       <div id="divDispText">
@@ -19,16 +22,7 @@
       <p id="divDate" style="font-size: 10px">最終更新日時: 2023/05/27 21:06</p>
     </div>
     <div id="divArea" style="display: none">
-      <textarea id="textarea1" name="txt" rows="20" cols="80">
-2023/05/27(土)
-■完了タスク1
-■完了タスク2
-■完了タスク3
-□未完了タスク1
-□未完了タスク2
-□未完了タスク3
-</textarea
-      >
+      <textarea id="textarea1" name="txt" rows="20" cols="80"></textarea>
       <input id="btnSend" type="button" value="送信する(ctlr+Enter)" />
     </div>
     <script src="main.js"></script>
