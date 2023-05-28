@@ -12,6 +12,7 @@
     "@aws-sdk/client-dynamodb": "^3.341.0",
     "@aws-sdk/lib-dynamodb": "^3.341.0",
     "@vendia/serverless-express": "^4.10.4",
+    "cors": "^2.8.5",
     "express": "^4.18.2"
   }
 }

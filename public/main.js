@@ -4,6 +4,12 @@ btnEdit.onclick = () => {
 btnSend.onclick = () => {
   updateDivDisp();
   modeSetDisp();
+  postData('http://localhost:3000', { answer: 42, message: 'メッセージ' })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch(console.log);
 };
 
 const setStyleDisplayBulk = (elements, display) => {
@@ -48,3 +54,14 @@ document.addEventListener('keydown', (event) => {
     }
   }
 });
+
+/**
+ * POSTメソッドを投げる汎用関数
+ */
+function postData(url, data) {
+  return fetch(url, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(data),
+  });
+}

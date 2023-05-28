@@ -4,6 +4,7 @@ import { DynamoDBDocumentClient, UpdateCommand, QueryCommand } from '@aws-sdk/li
 import { YuzuskService } from './services/YuzuskService.mjs';
 import { UtilService } from './services/UtilService.mjs';
 import serverlessExpress from '@vendia/serverless-express';
+import cors from 'cors';
 
 // 初期化
 const utilService = new UtilService();
@@ -16,6 +17,7 @@ const yuzuskService = new YuzuskService({ ddbDocClient, UpdateCommand, QueryComm
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 // 汎用関数
 const p = console.log;
@@ -26,6 +28,9 @@ const setRoutePost = (route, func) => app.post(route, createHandler(func));
 
 // コントローラ
 setRouteGet('/', ({ res }) => res.send('疎通確認成功！'));
+setRoutePost('/', ({ req, res }) => {
+  res.send(JSON.stringify({ body: req.body }));
+});
 
 const main = async (event) => {
   const yuzuskkey = 'パーティションキー1';
