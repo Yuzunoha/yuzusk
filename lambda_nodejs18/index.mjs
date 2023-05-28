@@ -1,28 +1,20 @@
-// Create service client module using ES6 syntax.
 import { DynamoDB } from '@aws-sdk/client-dynamodb';
 import { DynamoDBDocumentClient, UpdateCommand } from '@aws-sdk/lib-dynamodb';
+import { YuzuskService } from './services/YuzuskService.mjs';
+import { UtilService } from './services/UtilService.mjs';
+
 const options = { endpoint: 'http://localhost:8000', region: 'dummy' };
 const dynamoDB = new DynamoDB(options);
 const ddbDocClient = DynamoDBDocumentClient.from(dynamoDB);
+const utilService = new UtilService();
+const yuzuskService = new YuzuskService({ ddbDocClient, UpdateCommand, utilService });
 
-const params = {
-  TableName: 'yuzusk',
-  Key: {
-    yuzuskkey: 'yuzuskkey1',
-  },
-  ExpressionAttributeNames: {
-    '#attr1': 'jst',
-    '#attr2': 'memo',
-  },
-  ExpressionAttributeValues: {
-    ':value1': 'abcde',
-    ':value2': 'いいい',
-  },
-  UpdateExpression: 'set #attr1 = :value1, #attr2 = :value2',
-  ConditionExpression: '#attr1 <> :value1',
+const p = console.log;
+
+const main = async () => {
+  const yuzuskkey = 'パーティションキー1';
+  const memo = 'メモ1です。';
+  await yuzuskService.update({ yuzuskkey, memo });
 };
 
-const run = async () => {
-  await ddbDocClient.send(new UpdateCommand(params));
-};
-run();
+main();
