@@ -15,11 +15,11 @@ const params = {
     '#attr2': 'memo',
   },
   ExpressionAttributeValues: {
-    ':value1': 'abc',
+    ':value1': 'abcde',
     ':value2': 'いいい',
   },
   UpdateExpression: 'set #attr1 = :value1, #attr2 = :value2',
-  // ConditionExpression: 'yuzuskkey <> yuzuskkey1',
+  ConditionExpression: '#attr1 <> :value1',
 };
 
 const run = async () => {
