@@ -29,8 +29,14 @@ const setRoutePost = (route, func) => app.post(route, createHandler(func));
 // コントローラ
 setRouteGet('/', async ({ req, res }) => {
   // yuzuskkeyが無ければ作る
-  const item = await yuzuskService.selectItem({ yuzuskkey });
-  return item;
+  const yuzuskkey = req.query.id;
+  let item = await yuzuskService.selectItem({ yuzuskkey });
+  if (undefined === item) {
+    /* 無いので作る */
+    await yuzuskService.update({ yuzuskkey, memo: 'ご自由にお使いください。' });
+    item = await yuzuskService.selectItem({ yuzuskkey });
+  }
+  res.send(JSON.stringify(item));
 });
 setRoutePost('/', ({ req, res }) => {
   res.send(JSON.stringify({ body: req.body }));
