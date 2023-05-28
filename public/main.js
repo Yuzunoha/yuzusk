@@ -61,7 +61,7 @@ const updateDivDisp = () => {
 };
 
 document.addEventListener('keydown', (event) => {
-  if ('block' === btnSend.style.display) {
+  if ('block' === divArea.style.display) {
     /* 編集モード中に */
     if (event.ctrlKey && event.code === 'Enter') {
       /* ctlr+Enter が押された*/
