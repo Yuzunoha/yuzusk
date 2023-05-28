@@ -27,7 +27,11 @@ const setRouteGet = (route, func) => app.get(route, createHandler(func));
 const setRoutePost = (route, func) => app.post(route, createHandler(func));
 
 // コントローラ
-setRouteGet('/', ({ res }) => res.send('疎通確認成功！'));
+setRouteGet('/', async ({ req, res }) => {
+  // yuzuskkeyが無ければ作る
+  const item = await yuzuskService.selectItem({ yuzuskkey });
+  return item;
+});
 setRoutePost('/', ({ req, res }) => {
   res.send(JSON.stringify({ body: req.body }));
 });
