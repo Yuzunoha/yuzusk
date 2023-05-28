@@ -25,7 +25,10 @@ btnSend.onclick = () => {
 };
 btnSetup.onclick = () => {
   // リダイレクト
-  location.href = '?a=b';
+  const id = inputId.value;
+  if (id) {
+    location.href = '?id=' + id;
+  }
 };
 
 const setStyleDisplayBulk = (elements, display) => {
