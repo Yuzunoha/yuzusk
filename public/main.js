@@ -1,10 +1,16 @@
+const urlAws = 'https://6f7lnalfjbbh2ywq55vydlkgty0isvdg.lambda-url.ap-northeast-1.on.aws/';
+const urlLocal = 'http://localhost:3000';
+
 btnEdit.onclick = () => {
   modeSetEdit();
 };
 btnSend.onclick = () => {
   updateDivDisp();
   modeSetDisp();
-  postData('http://localhost:3000', { answer: 42, message: 'メッセージ' })
+  postData(urlLocal, {
+    answer: 42,
+    message: 'メッセージ',
+  })
     .then((res) => res.json())
     .then((data) => {
       console.log(data);
