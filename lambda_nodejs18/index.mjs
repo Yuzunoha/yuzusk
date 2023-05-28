@@ -40,8 +40,11 @@ setRouteGet('/', async ({ req, res }) => {
   }
   res.send(JSON.stringify(item));
 });
-setRoutePost('/', ({ req, res }) => {
-  res.send(JSON.stringify({ body: req.body }));
+setRoutePost('/', async ({ req, res }) => {
+  const yuzuskkey = req.body.id;
+  const memo = req.body.memo;
+  await yuzuskService.update({ yuzuskkey, memo });
+  return res.send('');
 });
 
 // 起動
