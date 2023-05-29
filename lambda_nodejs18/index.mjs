@@ -43,8 +43,8 @@ setRouteGet('/', async ({ req, res }) => {
 setRoutePost('/', async ({ req, res }) => {
   const yuzuskkey = req.body.id;
   const memo = req.body.memo;
-  await yuzuskService.update({ yuzuskkey, memo });
-  return res.send('');
+  const { jst } = await yuzuskService.update({ yuzuskkey, memo });
+  return res.send(JSON.stringify({ jst }));
 });
 
 // 起動

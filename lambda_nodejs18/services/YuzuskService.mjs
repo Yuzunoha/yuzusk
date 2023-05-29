@@ -12,6 +12,7 @@ export class YuzuskService {
    * 上書きする
    */
   async update({ yuzuskkey, memo }) {
+    const jst = this.utilService.getJstStr();
     const params = {
       TableName: this.tableName,
       Key: {
@@ -22,13 +23,13 @@ export class YuzuskService {
         '#memo': 'memo',
       },
       ExpressionAttributeValues: {
-        ':jst': this.utilService.getJstStr(),
+        ':jst': jst,
         ':memo': memo,
       },
       UpdateExpression: 'set #jst = :jst, #memo = :memo',
-      // ConditionExpression: '#attr1 <> :value1',
     };
     await this.ddbDocClient.send(new this.UpdateCommand(params));
+    return { jst };
   }
 
   /**
