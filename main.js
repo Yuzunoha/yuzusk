@@ -73,7 +73,12 @@ btnSend.onclick = () => {
   const memo = textarea1.value;
   updateDivDisp();
   modeSetDisp();
-  postData(url, { id, memo }).then(p).catch(p);
+  postData(url, { id, memo })
+    .then((r) => r.json())
+    .then(({ jst }) => {
+      divDate.innerHTML = jst;
+    })
+    .catch(p);
 };
 
 btnSetup.onclick = () => {
