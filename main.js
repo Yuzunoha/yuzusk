@@ -47,6 +47,37 @@ const modeSetTop = () => {
 };
 
 /**
+ * リンク文字列ならtrueを返す
+ */
+const isLinkStr = (str) => {
+  const pattern = /^(https?)(:\/\/[\w\/:%#\$&\?\(\)~\.=\+\-]+)/;
+  return pattern.test(str);
+};
+
+/**
+ * 文字列aがbを含んでいたらtrueを返す関数
+ */
+const aContainsB = (a, b) => {
+  return -1 !== a.indexOf(b);
+};
+
+/**
+ * 行の中のリンクをaタグに置換する
+ */
+const createLinkForMarkup = (row) => {
+  if (aContainsB(row, 'http')) {
+    /* この行はhttpを含んでいる */
+    // 区切り文字も一つの要素として分割する
+    const list = row.split(/(&nbsp)/g).map((token) => {
+      return isLinkStr(token) ? `<a href="${token}">${token}</a>` : token;
+    });
+    row = '';
+    list.forEach((e) => (row += e));
+  }
+  return row;
+};
+
+/**
  * テキストエリアの中身をhtmlとして設定する関数
  */
 const updateDivDisp = () => {
@@ -57,11 +88,19 @@ const updateDivDisp = () => {
     }
     return s;
   };
-  const a = textarea1.value // テキストをHTMLに変換する
+
+  // テキストをHTMLに変換する
+  const markup1 = textarea1.value
     .replace(/\n/g, '<br>') // 改行
     .replace(/ /g, spaceN(1)) // 半角スペース
     .replace(/\t/g, spaceN(8)); // タブ文字
-  divDispText.innerHTML = a;
+
+  // リンクをaタグに変換する
+  const list = markup1.split(/(<br>)/g).map(createLinkForMarkup);
+
+  let markup2 = '';
+  list.forEach((e) => (markup2 += e));
+  divDispText.innerHTML = markup2;
 };
 
 btnEdit.onclick = () => {
