@@ -64,15 +64,13 @@ const aContainsB = (a, b) => {
 /**
  * 行の中のリンクをaタグに置換する
  */
-const createLinkForMarkup = (row) => {
+const createLinkForMarkupRow = (row) => {
   if (aContainsB(row, 'http')) {
     /* この行はhttpを含んでいる */
-    // 区切り文字も一つの要素として分割する
-    const list = row.split(/(&nbsp)/g).map((token) => {
-      return isLinkStr(token) ? `<a href="${token}">${token}</a>` : token;
-    });
-    row = '';
-    list.forEach((e) => (row += e));
+    row = row
+      .split(/(&nbsp)/g) // 区切り文字も一つの要素として分割する
+      .map((e) => (isLinkStr(e) ? `<a href="${e}">${e}</a>` : e))
+      .join('');
   }
   return row;
 };
@@ -95,7 +93,7 @@ const updateDivDisp = () => {
     .replace(/ /g, spaceN(1)) // 半角スペース
     .replace(/\t/g, spaceN(8)) // タブ文字
     .split(/(<br>)/g) // 改行で分割して
-    .map(createLinkForMarkup) // リンクをaタグに変換し、
+    .map(createLinkForMarkupRow) // リンクをaタグに変換し、
     .join(''); // 配列を文字列に戻す
 
   divDispText.innerHTML = markup;
