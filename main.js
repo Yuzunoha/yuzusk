@@ -90,17 +90,15 @@ const updateDivDisp = () => {
   };
 
   // テキストをHTMLに変換する
-  const markup1 = textarea1.value
+  const markup = textarea1.value
     .replace(/\n/g, '<br>') // 改行
     .replace(/ /g, spaceN(1)) // 半角スペース
-    .replace(/\t/g, spaceN(8)); // タブ文字
+    .replace(/\t/g, spaceN(8)) // タブ文字
+    .split(/(<br>)/g) // 改行で分割して
+    .map(createLinkForMarkup) // リンクをaタグに変換し、
+    .join(''); // 配列を文字列に戻す
 
-  // リンクをaタグに変換する
-  const list = markup1.split(/(<br>)/g).map(createLinkForMarkup);
-
-  let markup2 = '';
-  list.forEach((e) => (markup2 += e));
-  divDispText.innerHTML = markup2;
+  divDispText.innerHTML = markup;
 };
 
 btnEdit.onclick = () => {
