@@ -69,7 +69,7 @@ const createLinkForMarkupRow = (row) => {
     /* この行はhttpを含んでいる */
     row = row
       .split(/(&nbsp)/g) // 区切り文字も一つの要素として分割する
-      .map((e) => (isLinkStr(e) ? `<a href="${e}">${e}</a>` : e))
+      .map((e) => (isLinkStr(e) ? `<a href="${e}" target=”_blank”>${e}</a>` : e))
       .join('');
   }
   return row;
