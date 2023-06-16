@@ -41,8 +41,15 @@ setRouteGet('/', async ({ req, res }) => {
   res.send(JSON.stringify(item));
 });
 setRoutePost('/', async ({ req, res }) => {
-  const yuzuskkey = req.body.id;
-  const memo = req.body.memo;
+  const { yuzuskkey, memo, oldMemo } = req.body;
+
+  // 裏で更新が掛かっていたらエラーを返却する
+  const item = await yuzuskService.selectItem({ yuzuskkey });
+  if (oldMemo !== item.memo) {
+    res.status(409);
+    return res.send(JSON.stringify({ errMsg: '裏で更新されているため、更新に失敗しました。' }));
+  }
+
   const { jst } = await yuzuskService.update({ yuzuskkey, memo });
   return res.send(JSON.stringify({ jst }));
 });
