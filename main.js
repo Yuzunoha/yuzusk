@@ -10,6 +10,11 @@ const url = urlAws;
 const p = console.log;
 
 /**
+ * 取得時のメモ。更新時にサーバに渡して、裏で更新されていないかチェックために使う。
+ */
+let oldMemo = '';
+
+/**
  * urlからidを取得する関数
  */
 const getIdByUrl = () => {
@@ -108,10 +113,17 @@ btnSend.onclick = () => {
   const memo = textarea1.value;
   updateDivDisp();
   modeSetDisp();
-  postData(url, { id, memo })
-    .then((r) => r.json())
-    .then(({ jst }) => {
-      divDate.innerHTML = jst;
+  postData(url, { id, memo, oldMemo })
+    .then(async (r) => ({
+      status: r.status,
+      obj: await r.json(),
+    }))
+    .then(({ status, obj }) => {
+      if (200 !== Number(status)) {
+        alert(obj.errMsg);
+      } else {
+        divDate.innerHTML = obj.jst;
+      }
     })
     .catch(p);
 };
@@ -148,6 +160,8 @@ window.addEventListener('DOMContentLoaded', (event) => {
     fetch(url + '?id=' + id)
       .then((response) => response.json())
       .then(({ memo, jst }) => {
+        // 取得時のメモを記録する
+        oldMemo = memo;
         // 表示を更新する
         textarea1.value = memo;
         divDate.innerHTML = jst;
