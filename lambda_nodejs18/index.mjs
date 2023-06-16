@@ -41,7 +41,7 @@ setRouteGet('/', async ({ req, res }) => {
   res.send(JSON.stringify(item));
 });
 setRoutePost('/', async ({ req, res }) => {
-  const { yuzuskkey, memo, oldMemo } = req.body;
+  const { id: yuzuskkey, memo, oldMemo } = req.body;
 
   // 裏で更新が掛かっていたらエラーを返却する
   const item = await yuzuskService.selectItem({ yuzuskkey });
