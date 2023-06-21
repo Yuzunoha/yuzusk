@@ -123,6 +123,7 @@ btnSend.onclick = () => {
         alert(obj.errMsg);
       } else {
         divDate.innerHTML = obj.jst;
+        oldMemo = memo; // グローバル変数を更新する
       }
     })
     .catch(p);
