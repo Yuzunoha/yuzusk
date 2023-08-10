@@ -144,16 +144,15 @@ document.addEventListener('keydown', (event) => {
       /* ctlr+Enter が押された*/
       // 送信ボタン押下と同じ効果を発生させる
       btnSend.onclick();
-    } else if (event.ctrlKey && event.code === 'KeyQ') {
-      /* ctlr+Q が押された*/
+    } else if (event.code === 'Escape') {
+      /* Escape が押された*/
       // 送信せずに閲覧モードに切り替える
       modeSetDisp();
     }
   } else if ('block' === divDisp.style.display) {
     /* 閲覧モード中に */
-    console.log('code', event.code);
-    if (event.ctrlKey && event.code === 'KeyI') {
-      /* ctlr+E が押された*/
+    if (event.code === 'KeyI' || event.code === 'KeyE') {
+      /* EまたはI が押された*/
       // 編集ボタン押下と同じ効果を発生させる
       btnEdit.onclick();
     }
