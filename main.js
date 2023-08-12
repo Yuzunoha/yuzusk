@@ -41,6 +41,8 @@ const setStyleDisplayBulkNone = (elements) => setStyleDisplayBulk(elements, 'non
 const modeSetEdit = () => {
   setStyleDisplayBulkBlock([divArea]);
   setStyleDisplayBulkNone([divDisp, divTop]);
+  // テキストエディタにフォーカスする
+  textarea1.focus();
 };
 const modeSetDisp = () => {
   setStyleDisplayBulkBlock([divDisp]);
@@ -138,6 +140,8 @@ btnSetup.onclick = () => {
 };
 
 document.addEventListener('keydown', (event) => {
+  // キー入力を無効化する(これが無いとエディタにeとか入ってしまう)
+  event.preventDefault();
   if ('block' === divArea.style.display) {
     /* 編集モード中に */
     if (event.ctrlKey && event.code === 'Enter') {
