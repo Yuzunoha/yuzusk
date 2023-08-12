@@ -139,29 +139,41 @@ btnSetup.onclick = () => {
   }
 };
 
-document.addEventListener('keydown', (event) => {
-  // キー入力を無効化する(これが無いとエディタにeとか入ってしまう)
-  event.preventDefault();
+/**
+ * ショートカットコマンド設定
+ */
+const handleEvent = (event) => {
   if ('block' === divArea.style.display) {
-    /* 編集モード中に */
-    if (event.ctrlKey && event.code === 'Enter') {
-      /* ctlr+Enter が押された*/
-      // 送信ボタン押下と同じ効果を発生させる
-      btnSend.onclick();
-    } else if (event.code === 'Escape') {
-      /* Escape が押された*/
-      // 送信せずに閲覧モードに切り替える
-      modeSetDisp();
+    /* 編集モードである */
+    if (event.ctrlKey) {
+      /* ctrlが押されている */
+      if ('Enter' === event.code) {
+        /* Enterが押された */
+        // 送信ボタン押下と同じ効果を発生させる
+        btnSend.onclick();
+        // キー入力を無効化する
+        event.preventDefault();
+      }
+    } else {
+      /* ctrlが押されていない */
+      if ('Escape' === event.code) {
+        /* Escape が押された*/
+        // 送信せずに閲覧モードに切り替える
+        modeSetDisp();
+      }
     }
   } else if ('block' === divDisp.style.display) {
-    /* 閲覧モード中に */
-    if (event.code === 'KeyI' || event.code === 'KeyE') {
+    /* 閲覧モードである */
+    if ('KeyI' === event.code || 'KeyE' === event.code) {
       /* EまたはI が押された*/
       // 編集ボタン押下と同じ効果を発生させる
       btnEdit.onclick();
+      // キー入力を無効化する
+      event.preventDefault();
     }
   }
-});
+};
+document.addEventListener('keydown', handleEvent);
 
 /**
  * 初期化処理
